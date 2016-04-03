@@ -15,6 +15,7 @@ if v:progname =~? "evim"
   finish
 endif
 
+let mapleader = "\<Space>"
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
@@ -44,7 +45,7 @@ inoremap <C-U> <C-G>u<C-U>
 
 " Set line numbers to always be visible
 set number
-" And use jj to enter insert mode
+" And use to enter insert mode
 imap jk <Esc>  
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
@@ -106,3 +107,10 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 
+"Leader mappings
+" run rake for testing
+nmap <leader>r :!rake<CR>
+"run rspec for testing
+nmap <leader>rs :!rspec<CR> 
+" Add a blank line without entering insert mode
+nmap <leader>i ojk
