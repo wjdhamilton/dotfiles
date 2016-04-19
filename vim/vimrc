@@ -1,4 +1,3 @@
-
 " An example for a vimrc file.
 "
 " Maintainer:	Bram Moolenaar <Bram@vim.org>
@@ -76,7 +75,7 @@ inoremap <C-U> <C-G>u<C-U>
 
 " Set line numbers to always be visible
 set number
-" And use to enter insert mode
+" And use jk to enter insert mode
 inoremap jk <Esc>  
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
