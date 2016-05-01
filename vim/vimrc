@@ -14,10 +14,15 @@ if v:progname =~? "evim"
   finish
 endif
 
+set backupdir=~/vimtmp,.
+set directory=~/vimtmp,.
+
 let mapleader = "\<Space>"
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
+
+" ###################### Vundle Stuff ##################################
 filetype off      "required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -28,9 +33,12 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'thoughtbot/vim-rspec'
-Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-commentary'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'christoomey/vim-tmux-runner'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -45,10 +53,22 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+"
+" ############### Vim-Tmux-Runner for RSpec ###############################
+
+let g:rspec_command = "VtrSendCommandToRunner! rspec {spec}"
+
+" #################### Ctrl-P #####################################
 
 " Make CtrlP use ag for listing the files. Much faster and no useless files.
 let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
 let g:ctrlp_use_caching = 0
+
+" automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
+
+" Allow matching between do/def/if etc and end
+runtime macros/matchit.vim
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -154,3 +174,9 @@ nmap <leader>rs :call RunAllSpecs()<CR>
 nmap <leader>"" :%s/'/"/g<Bar>:noh<CR>
 " Move with <Space> rather than gg
 nmap <leader><leader> gg
+" Source vimRC
+nmap <leader>sc :source $MYVIMRC<CR>
+" zoom a vim pane, <C-w>= to re-balance
+nnoremap <leader>- :wincmd _<CR>:wincmd \|<CR>
+nnoremap <leader>= :wincmd =<CR>
+nnoremap <leader>irb :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'irb'}<cr>
