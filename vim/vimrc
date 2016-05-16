@@ -157,7 +157,8 @@ endif
 set expandtab
 set tabstop=2
 set shiftwidth=2
-
+" Always display statusline
+set laststatus=2
 "Leader mappings
 " run rake for testing
 nmap <leader>r :!rake<CR>
@@ -179,6 +180,8 @@ nmap <leader>"" :%s/'/"/g<Bar>:noh<CR>
 nmap <leader><leader> gg
 " Source vimRC
 nmap <leader>sc :source $MYVIMRC<CR>
+" Insert a command to byebug
+nmap <leader>bb O byebug jk
 " zoom a vim pane, <C-w>= to re-balance
 nnoremap <leader>- :wincmd _<CR>:wincmd \|<CR>
 nnoremap <leader>= :wincmd =<CR>
