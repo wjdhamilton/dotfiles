@@ -41,6 +41,7 @@ Plugin 'christoomey/vim-tmux-runner'
 Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'othree/yajs.vim'
 Plugin 'elmcast/elm-vim'
+Plugin 'yorickpeterse/ruby-lint'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -162,8 +163,8 @@ set laststatus=2
 "Leader mappings
 " run rake for testing
 nmap <leader>r :!rake<CR>
-" Add a blank line without entering insert mode
-nmap <leader>i ojk
+" Reindent file and return to current position
+nmap <leader>i mmgg=G`m
 " Switch off search highlighting
 nmap <leader>n :noh<CR>
 " Run Rspec all tests in the file
@@ -181,8 +182,7 @@ nmap <leader><leader> gg
 " Source vimRC
 nmap <leader>sc :source $MYVIMRC<CR>
 " Insert a command to byebug
-nmap <leader>bb O byebug jk
+nmap <leader>bb O byebug jk :w<CR>
 " zoom a vim pane, <C-w>= to re-balance
 nnoremap <leader>- :wincmd _<CR>:wincmd \|<CR>
 nnoremap <leader>= :wincmd =<CR>
-nnoremap <leader>irb :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'irb'}<cr>
