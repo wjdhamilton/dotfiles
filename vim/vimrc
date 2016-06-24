@@ -45,6 +45,7 @@ Plugin 'yorickpeterse/ruby-lint'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -99,8 +100,8 @@ inoremap <C-U> <C-G>u<C-U>
 
 " Set line numbers to always be visible
 set number
-" And use jk to enter insert mode
-inoremap jk <Esc>  
+" And use jj to enter insert mode
+inoremap jk <Esc>l
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
