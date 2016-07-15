@@ -7,7 +7,7 @@ if [ -f `brew --prefix`/etc/bash_completion ]; then
   . `brew --prefix`/etc/bash_completion
 fi
 GIT_PS1_SHOWDIRTYSTATE=true
-export PS1='[\u@mbp $(basename $(dirname "$PWD"))/$(basename "$PWD") $(__git_ps1)]\A\$ '
+export PS1='[\u@mbp $(basename $(dirname "$PWD"))/$(basename "$PWD")$(__git_ps1)]\A\$ '
 export PATH="$HOME/bin:$PATH"
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc
