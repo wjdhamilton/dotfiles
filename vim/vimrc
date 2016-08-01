@@ -198,15 +198,23 @@ noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
 nnoremap <leader>= :wincmd =<CR>
 
-" Syntastic Stuff
+" Syntastic Stuff Removed because it removed  the edited indicator and line
+" numbers from status bar
  " set statusline+=%#warningmsg#
  " set statusline+=%{SyntasticStatuslineFlag()}
  " set statusline+=%*
+
+ " The elm-vim plugin's syntastic implementation is problematic switch it off
+ " until the plugin has been improved
+ let g:syntastic_mode_map = {
+  \ "mode": "active",
+  \ "passive_filetypes": ["elm"] }
 
  let g:syntastic_always_populate_loc_list = 1
  let g:syntastic_auto_loc_list = 1
  let g:syntastic_check_on_open = 1
  let g:syntastic_check_on_wq = 0
+ let g:syntastic_always_populate_loc_list = 0
  
  let g:elm_syntastic_show_warnings = 1
 
