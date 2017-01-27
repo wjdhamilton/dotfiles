@@ -30,6 +30,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'tpope/vim-unimpaired'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-surround'
@@ -41,12 +42,19 @@ Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'othree/yajs.vim'
 Plugin 'yorickpeterse/ruby-lint'
 Plugin 'scrooloose/syntastic'
+Plugin 'Shougo/vimproc.vim'
 " Elm plugins
 Plugin 'elmcast/elm-vim'
 " Haskell Plugins
 Plugin 'bitc/vim-hdevtools'
 Plugin 'itchyny/vim-haskell-indent'
 Plugin 'neovimhaskell/haskell-vim'
+Plugin 'lukerandall/haskellmode-vim'
+Plugin 'eagletmt/ghcmod-vim.git'
+" Markdown
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'mattn/emmet-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -208,16 +216,48 @@ nnoremap <leader>= :wincmd =<CR>
  " until the plugin has been improved
  let g:syntastic_mode_map = {
   \ "mode": "active",
-  \ "passive_filetypes": ["elm"] }
+  \ "passive_filetypes": ["elm", "haskell"] }
 
  let g:syntastic_always_populate_loc_list = 1
- let g:syntastic_auto_loc_list = 1
+ let g:syntastic_auto_loc_list = 0
  let g:syntastic_check_on_open = 1
  let g:syntastic_check_on_wq = 0
- let g:syntastic_always_populate_loc_list = 0
  
- let g:elm_syntastic_show_warnings = 1
+ " let g:elm_syntastic_show_warnings = 1
 
-" HDevTools stuff
-au FileType haskell nnoremap <buffer> <leader>ht :HdevtoolsType<CR>
-au FileType haskell nmap <buffer> <silent> <leader>hc :HdevtoolsClear<CR> 
+" HDevTools
+" au FileType haskell nnoremap <buffer> <leader>ht :HdevtoolsType<CR>
+" au FileType haskell nmap <buffer> <silent> <leader>hc :HdevtoolsClear<CR> 
+
+" Haskellmode-vim
+au BufEnter *.hs compiler ghc
+let g:haddock_browser="open"
+
+" ghc mod
+let $PATH = $PATH . ':' . expand('~/.local/bin')
+
+" ghc-mod code completion
+map <silent>tw :GhcModTypeInsert<CR>
+map <silent>ts :GhcModSplitFunCase<CR>
+map <silent>tq :GhcModType<CR>
+map <silent>te :GhcModTypeClear<CR>
+nmap <leader>ht :GhcModCheck<CR>
+nmap <leader>hl :GhcModLint<CR>
+nmap <leader>hg :GhcModSigCodegen<CR>
+
+" Emmet
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css,html.erb EmmetInstall
+
+" Set max cols on markdown to 80
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
+" Make it obvious where 80 characters is
+set colorcolumn=81
+
+" Numbers
+set number
+set numberwidth=5
+
+" Use system clipboard
+set clipboard=unnamed
