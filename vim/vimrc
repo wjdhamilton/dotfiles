@@ -261,3 +261,9 @@ set numberwidth=5
 
 " Use system clipboard
 set clipboard=unnamed
+
+" Use relativeNumber
+
+set relativenumber
+autocmd InsertEnter * :set number norelativenumber
+autocmd InsertLeave * :set relativenumber 

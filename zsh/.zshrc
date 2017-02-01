@@ -51,7 +51,17 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+         autojump 
+         # brew 
+         # cabal 
+         chucknorris 
+         git 
+         jira 
+         # jsontools 
+         tmux
+         zsh-syntax-highlighting
+         )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -83,3 +93,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+source "$HOME/.jira.sh"
+
+# Syntax highlighting plugin
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
