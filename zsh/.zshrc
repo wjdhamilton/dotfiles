@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/$HOME/.local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/jameshamilton/.oh-my-zsh
@@ -29,7 +29,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -64,6 +64,10 @@ plugins=(
          )
 
 source $ZSH/oh-my-zsh.sh
+
+# Some rake tasks will not run in zsh normally. It just returns "no match found"
+# Not sure why, but this fixes it.https://github.com/robbyrussell/oh-my-zsh/issues/433 
+alias rake='noglob rake'
 
 # User configuration
 
@@ -111,6 +115,7 @@ ensure_tmux_is_running
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 source "$HOME/.jira.sh"
+
 
 # Syntax highlighting plugin
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

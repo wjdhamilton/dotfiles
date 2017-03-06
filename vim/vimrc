@@ -7,6 +7,13 @@
 "     for Unix and OS/2:  ~/.vimrc
 "	      for Amiga:  s:.vimrc
 "  for MS-DOS and Win32:  $VIM\_vimrc
+
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
+source $HOME/custom-vim-scripts/stubtest.vim
+
 "	    for OpenVMS:  sys$login:.vimrc
 
 " When started as "evim", evim.vim will already have done these settings.
@@ -18,9 +25,6 @@ set backupdir=~/vimtmp,.
 set directory=~/vimtmp,.
 
 let mapleader = "\<Space>"
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
 
 " ###################### Vundle Stuff ##################################
 " set the runtime path to include Vundle and initialize
@@ -55,7 +59,8 @@ Plugin 'eagletmt/ghcmod-vim.git'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'mattn/emmet-vim'
-
+" Hspec code highlighting
+Plugin 'hspec/hspec'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -198,6 +203,10 @@ nmap <leader><leader> gg
 nmap <leader>sc :source $MYVIMRC<CR>
 " Insert a command to byebug
 nmap <leader>bb O byebug jk :w<CR>
+" Stub a test
+nmap <leader>it :call WriteSpec()<CR>
+
+
 " zoom a vim pane, <C-w>= to re-balance
 nnoremap <leader>- :wincmd _<CR>:wincmd \|<CR>
 noremap  <buffer> <silent> k gk
@@ -205,6 +214,9 @@ noremap  <buffer> <silent> j gj
 noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
 nnoremap <leader>= :wincmd =<CR>
+" Go back to the last file edited
+nmap <leader>c :e#<CR>
+
 
 " Syntastic Stuff Removed because it removed  the edited indicator and line
 " numbers from status bar
@@ -244,6 +256,7 @@ map <silent>te :GhcModTypeClear<CR>
 nmap <leader>ht :GhcModCheck<CR>
 nmap <leader>hl :GhcModLint<CR>
 nmap <leader>hg :GhcModSigCodegen<CR>
+nmap <leader>w gqq
 
 " Emmet
 " let g:user_emmet_install_global = 0
@@ -267,3 +280,24 @@ set clipboard=unnamed
 set relativenumber
 autocmd InsertEnter * :set number norelativenumber
 autocmd InsertLeave * :set relativenumber 
+
+"Override ignorecase if a pattern contains an upcase
+set ignorecase
+set smartcase
+
+"Make panes auto-focus so that the active window always occupies the majority
+" of the space
+set winwidth=84
+set winheight=5
+set winminheight=5
+set winheight=999
+
+set splitbelow
+set splitright
+
+let g:user_emmet_install_global = 0
+let g:user_emmet_leader_key='<C-d>'
+autocmd FileType html,css EmmetInstall
+
+" Repeat : commands with one button
+map , @:
