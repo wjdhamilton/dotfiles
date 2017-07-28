@@ -34,12 +34,17 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'tpope/vim-unimpaired'
+Plugin 'vim-scripts/visualrepeat'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'thoughtbot/vim-rspec'
+
+" Tim Pope stuff
+Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
+
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'christoomey/vim-tmux-runner'
 Plugin 'mustache/vim-mustache-handlebars'
@@ -61,6 +66,8 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'mattn/emmet-vim'
 " Hspec code highlighting
 Plugin 'hspec/hspec'
+" Neo4j
+Plugin 'neo4j-contrib/cypher-vim-syntax'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
