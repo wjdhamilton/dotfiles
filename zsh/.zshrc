@@ -1,8 +1,12 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/Library/Python/3.6/bin:$HOME/bin:/usr/local/bin:/$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/Library/Python/3.6/bin:$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/jameshamilton/.oh-my-zsh
+
+# From Lucky installation guide for Mac OS High Sierra:
+
+export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -116,6 +120,17 @@ ensure_tmux_is_running
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 source "$HOME/.jira.sh"
 
+# added by Anaconda3 5.0.0 installer
+export PATH="/Users/jameshamilton/anaconda3/bin:$PATH"
 
 # Syntax highlighting plugin
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Stop the shell exiting with Ctr-D, unless you hit it 10 times
+setopt ignoreeof
+
+# ALIASES
+# #######
+
+# Delete all local dangling git branches
+alias gbpurge='git branch --merged | grep -v "\*" | grep -v "master" | xargs -n 1 git branch -d'
