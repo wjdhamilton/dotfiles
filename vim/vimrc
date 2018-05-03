@@ -12,7 +12,7 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-source $HOME/custom-vim-scripts/stubtest.vim
+" source $HOME/custom-vim-scripts/stubtest.vim
 
 "	    for OpenVMS:  sys$login:.vimrc
 
@@ -55,11 +55,11 @@ Plugin 'Shougo/vimproc.vim'
 " Elm plugins
 Plugin 'elmcast/elm-vim'
 " Haskell Plugins
-Plugin 'bitc/vim-hdevtools'
 Plugin 'itchyny/vim-haskell-indent'
 Plugin 'neovimhaskell/haskell-vim'
 Plugin 'lukerandall/haskellmode-vim'
 Plugin 'eagletmt/ghcmod-vim.git'
+Plugin 'pbrisbin/vim-syntax-shakespeare'
 " Markdown
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
@@ -68,6 +68,10 @@ Plugin 'mattn/emmet-vim'
 Plugin 'hspec/hspec'
 " Neo4j
 Plugin 'neo4j-contrib/cypher-vim-syntax'
+" Crystal
+Plugin 'rhysd/vim-crystal'
+" Rust
+Plugin 'cespare/vim-toml'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
@@ -188,8 +192,7 @@ set shiftwidth=2
 " Always display statusline
 set laststatus=2
 "Leader mappings
-" run rake for testing
-nmap <leader>r :!rake<CR>
+nmap <leader>rr ciw <C-r>0 <C-[>
 " Reindent file and return to current position
 nmap <leader>i mmgg=G`m
 " Switch off search highlighting
@@ -210,8 +213,6 @@ nmap <leader><leader> gg
 nmap <leader>sc :source $MYVIMRC<CR>
 " Insert a command to byebug
 nmap <leader>bb O byebug jk :w<CR>
-" Stub a test
-nmap <leader>it :call WriteSpec()<CR>
 
 
 " zoom a vim pane, <C-w>= to re-balance
@@ -263,11 +264,11 @@ map <silent>te :GhcModTypeClear<CR>
 nmap <leader>ht :GhcModCheck<CR>
 nmap <leader>hl :GhcModLint<CR>
 nmap <leader>hg :GhcModSigCodegen<CR>
-nmap <leader>w gqq
+nmap <leader>w gqap
 
 " Emmet
-" let g:user_emmet_install_global = 0
-" autocmd FileType html,css,html.erb EmmetInstall
+let g:user_emmet_install_global = 0
+autocmd FileType html,css,eruby EmmetInstall
 
 " Set max cols on markdown to 80
 au BufRead,BufNewFile *.md setlocal textwidth=80
@@ -303,8 +304,13 @@ set splitbelow
 set splitright
 
 let g:user_emmet_install_global = 0
-let g:user_emmet_leader_key='<C-d>'
 autocmd FileType html,css EmmetInstall
 
 " Repeat : commands with one button
-map , @:
+map M @:
+
+" Get rid of the annoying let indentation behaviour in haskell-vim
+let g:haskell_indent_let = 0
+let g:syntastic_javascript_jshint_args = '--config .jshintrc'
+
+
