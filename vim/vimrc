@@ -26,54 +26,58 @@ set directory=~/vimtmp,.
 
 let mapleader = "\<Space>"
 
-" ###################### Vundle Stuff ##################################
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'vim-scripts/visualrepeat'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'thoughtbot/vim-rspec'
+Plug 'vim-scripts/visualrepeat'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'thoughtbot/vim-rspec' "?
 
 " Tim Pope stuff
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired' "?
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat' "?
+Plug 'tpope/vim-commentary' "?
+Plug 'tpope/vim-fugitive' "?
 
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'christoomey/vim-tmux-runner'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'othree/yajs.vim'
-Plugin 'yorickpeterse/ruby-lint'
-Plugin 'scrooloose/syntastic'
-Plugin 'Shougo/vimproc.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-runner'
+Plug 'othree/yajs.vim' "?
+Plug 'yorickpeterse/ruby-lint'
+Plug 'Shougo/vimproc.vim' "?
 " Elm plugins
-Plugin 'elmcast/elm-vim'
+Plug 'elmcast/elm-vim'
 " Haskell Plugins
-Plugin 'itchyny/vim-haskell-indent'
-Plugin 'neovimhaskell/haskell-vim'
-Plugin 'lukerandall/haskellmode-vim'
-Plugin 'eagletmt/ghcmod-vim.git'
-Plugin 'pbrisbin/vim-syntax-shakespeare'
+Plug 'itchyny/vim-haskell-indent' "? Are any of these needed, given I have haskell-ide installed?
+Plug 'neovimhaskell/haskell-vim' "?
+Plug 'lukerandall/haskellmode-vim' "?
+Plug 'pbrisbin/vim-syntax-shakespeare' "?
+Plug 'alx741/yesod.vim' "?
 " Markdown
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'mattn/emmet-vim'
+Plug 'godlygeek/tabular' "?
+Plug 'plasticboy/vim-markdown'
+" HTML editing
+Plug 'mattn/emmet-vim'
 " Hspec code highlighting
-Plugin 'hspec/hspec'
+Plug 'hspec/hspec' "? Should be in Haskell section, and what does it do??
 " Neo4j
-Plugin 'neo4j-contrib/cypher-vim-syntax'
+Plug 'neo4j-contrib/cypher-vim-syntax'
 " Crystal
-Plugin 'rhysd/vim-crystal'
+Plug 'rhysd/vim-crystal'
 " Rust
-Plugin 'cespare/vim-toml'
+Plug 'cespare/vim-toml'
+
+" LanguageClient server
+Plug 'autozimu/LanguageClient-neovim', {
+  \ 'branch': 'next',
+  \ 'do' : 'bash install.sh'
+  \}
+Plug 'chrisbra/csv.vim'
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
+Plug 'junegunn/fzf.vim'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
 
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
@@ -225,26 +229,6 @@ nnoremap <leader>= :wincmd =<CR>
 " Go back to the last file edited
 nmap <leader>c :e#<CR>
 
-
-" Syntastic Stuff Removed because it removed  the edited indicator and line
-" numbers from status bar
- " set statusline+=%#warningmsg#
- " set statusline+=%{SyntasticStatuslineFlag()}
- " set statusline+=%*
-
- " The elm-vim plugin's syntastic implementation is problematic switch it off
- " until the plugin has been improved
- let g:syntastic_mode_map = {
-  \ "mode": "active",
-  \ "passive_filetypes": ["elm", "haskell"] }
-
- let g:syntastic_always_populate_loc_list = 1
- let g:syntastic_auto_loc_list = 0
- let g:syntastic_check_on_open = 1
- let g:syntastic_check_on_wq = 0
- 
- " let g:elm_syntastic_show_warnings = 1
-
 " HDevTools
 " au FileType haskell nnoremap <buffer> <leader>ht :HdevtoolsType<CR>
 " au FileType haskell nmap <buffer> <silent> <leader>hc :HdevtoolsClear<CR> 
@@ -255,16 +239,6 @@ let g:haddock_browser="open"
 
 " ghc mod
 let $PATH = $PATH . ':' . expand('~/.local/bin')
-
-" ghc-mod code completion
-map <silent>tw :GhcModTypeInsert<CR>
-map <silent>ts :GhcModSplitFunCase<CR>
-map <silent>tq :GhcModType<CR>
-map <silent>te :GhcModTypeClear<CR>
-nmap <leader>ht :GhcModCheck<CR>
-nmap <leader>hl :GhcModLint<CR>
-nmap <leader>hg :GhcModSigCodegen<CR>
-nmap <leader>w gqap
 
 " Emmet
 let g:user_emmet_install_global = 0
@@ -311,6 +285,20 @@ map M @:
 
 " Get rid of the annoying let indentation behaviour in haskell-vim
 let g:haskell_indent_let = 0
-let g:syntastic_javascript_jshint_args = '--config .jshintrc'
+
+"Haskell-ide-engine keybindings
+nnoremap <silent> go :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <silent> ga :call LanguageClient#textDocument_codeAction()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gr :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> gff :call LanguageClient#textDocument_formatting()<CR>
+nnoremap <silent> tq :call LanguageClient#textDocument_hover()<CR>
 
 
+let g:LanguageClient_serverCommands = {
+    \ 'haskell': ['hie-wrapper'],
+    \ 'javascript': ['javascript-typescript-stdio']
+    \ }
+
+" deoplete stuff
+let g:deoplete#enable_at_startup = 1

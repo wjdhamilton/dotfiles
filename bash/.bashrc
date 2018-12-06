@@ -11,3 +11,5 @@ ensure_tmux_is_running() {
 ensure_tmux_is_running
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

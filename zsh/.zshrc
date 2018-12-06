@@ -1,6 +1,10 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/Library/Python/3.6/bin:$HOME/bin:/usr/local/bin:/$HOME/.local/bin:$PATH
 
+#ZSH site functions for Heroku autocomplete. 
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/jameshamilton/.oh-my-zsh
 
@@ -119,3 +123,10 @@ source "$HOME/.jira.sh"
 
 # Syntax highlighting plugin
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# heroku autocomplete setup
+HEROKU_AC_ZSH_SETUP_PATH=/Users/jameshamilton/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+# heroku autocomplete setup
+HEROKU_AC_ZSH_SETUP_PATH=/Users/jameshamilton/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
