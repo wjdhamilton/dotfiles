@@ -1,0 +1,11 @@
+#!/bin/sh
+
+filename=$(basename -- $1)
+extension="${filename##*.}"
+filename="${filename%.*}"
+
+backup_name=${filename}_cropped.$extension
+
+convert $1 -gravity Center -extent 2:1 $backup_name
+
+

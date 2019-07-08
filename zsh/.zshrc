@@ -58,7 +58,7 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
          autojump 
          # brew 
-         # cabal 
+         cabal 
          chucknorris 
          git 
          jira 
@@ -125,6 +125,8 @@ source "$HOME/.jira.sh"
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias neo4j="~/neo4j/neo4j-community-3.5.4/bin/neo4j"
 
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=/Users/jameshamilton/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
