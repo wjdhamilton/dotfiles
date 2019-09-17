@@ -45,7 +45,6 @@ Plug 'othree/yajs.vim' "?
 Plug 'yorickpeterse/ruby-lint'
 Plug 'Shougo/vimproc.vim' "?
 " Elm plugins
-" Plug 'elmcast/elm-vim' " -- was causing problems with deoplete
 Plug 'andys8/vim-elm-syntax'
 " Haskell Plugins
 Plug 'itchyny/vim-haskell-indent' "? Are any of these needed, given I have haskell-ide installed?
