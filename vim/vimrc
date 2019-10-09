@@ -31,6 +31,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-scripts/visualrepeat'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'thoughtbot/vim-rspec' "?
+Plug 'dense-analysis/ale'
 
 " Tim Pope stuff
 Plug 'tpope/vim-unimpaired' "?
@@ -44,7 +45,7 @@ Plug 'othree/yajs.vim' "?
 Plug 'yorickpeterse/ruby-lint'
 Plug 'Shougo/vimproc.vim' "?
 " Elm plugins
-Plug 'elmcast/elm-vim'
+Plug 'andys8/vim-elm-syntax'
 " Haskell Plugins
 Plug 'itchyny/vim-haskell-indent' "? Are any of these needed, given I have haskell-ide installed?
 Plug 'neovimhaskell/haskell-vim' "?
@@ -74,7 +75,7 @@ Plug 'chrisbra/csv.vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
@@ -296,10 +297,14 @@ nnoremap <silent> tq :call LanguageClient#textDocument_hover()<CR>
 
 let g:LanguageClient_serverCommands = {
       \ 'haskell': ['hie-wrapper'],
-      \ 'javascript': ['javascript-typescript-stdio']
+      \ 'javascript': ['javascript-typescript-stdio'],
+      \ 'elm' : ['elm-language-server']
       \ }
 
 let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
 
 " deoplete stuff
 let g:deoplete#enable_at_startup = 1
+
+" ALE linters
+let g:ale_linters = { 'elm': ['elm_ls'] }
