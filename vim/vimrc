@@ -76,6 +76,9 @@ Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'vim-vdebug/vdebug'
+" Latex
+Plug 'vim-latex/vim-latex'
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
@@ -308,3 +311,6 @@ let g:deoplete#enable_at_startup = 1
 
 " ALE linters
 let g:ale_linters = { 'elm': ['elm_ls'] }
+
+" Vim-latex
+let g:Tex_FormatDependency_pdf = 'dvi,ps,pdf'
