@@ -1,5 +1,9 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/Library/Python/3.6/bin:$HOME/bin:/usr/local/bin:/$HOME/.local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/$HOME/.local/bin:$PATH
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 #ZSH site functions for Heroku autocomplete. 
 if type brew &>/dev/null; then
@@ -60,6 +64,7 @@ plugins=(
          # brew 
          cabal 
          chucknorris 
+         copypath
          git 
          jira 
          # jsontools 
@@ -126,9 +131,15 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-alias neo4j="~/neo4j/neo4j-community-3.5.4/bin/neo4j"
 
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=/Users/jameshamilton/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=/Users/jameshamilton/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+
+# Set Rust source path for rust toolchain
+export RUST_SRC_PATH=/usr/local/src/rust/src
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+[ -f "/Users/jameshamilton/.ghcup/env" ] && source "/Users/jameshamilton/.ghcup/env" # ghcup-env

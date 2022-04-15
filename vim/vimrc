@@ -25,6 +25,7 @@ set backupdir=~/vimtmp,.
 set directory=~/vimtmp,.
 
 let mapleader = "\<Space>"
+let maplocalleader = "\\"
 
 call plug#begin('~/.vim/plugged')
 
@@ -39,32 +40,28 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat' "?
 Plug 'tpope/vim-commentary' "?
 Plug 'tpope/vim-fugitive' "?
+
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'christoomey/vim-tmux-runner'
+
 Plug 'othree/yajs.vim' "?
 Plug 'yorickpeterse/ruby-lint'
 Plug 'Shougo/vimproc.vim' "?
 " Elm plugins
 Plug 'andys8/vim-elm-syntax'
+Plug 'avh4/elm-format'
+Plug 'elmcast/elm-vim'
 " Haskell Plugins
-Plug 'itchyny/vim-haskell-indent' "? Are any of these needed, given I have haskell-ide installed?
-Plug 'neovimhaskell/haskell-vim' "?
-Plug 'lukerandall/haskellmode-vim' "?
-Plug 'pbrisbin/vim-syntax-shakespeare' "?
-Plug 'alx741/yesod.vim' "?
 " Markdown
 Plug 'godlygeek/tabular' "?
 Plug 'plasticboy/vim-markdown'
 " HTML editing
 Plug 'mattn/emmet-vim'
-" Hspec code highlighting
-Plug 'hspec/hspec' "? Should be in Haskell section, and what does it do??
 " Neo4j
 Plug 'neo4j-contrib/cypher-vim-syntax'
 " Crystal
 Plug 'rhysd/vim-crystal'
 " Rust
-Plug 'cespare/vim-toml'
 " Ruby stuff
 " LanguageClient server
 Plug 'autozimu/LanguageClient-neovim', {
@@ -78,7 +75,12 @@ Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'vim-vdebug/vdebug'
 " Latex
-Plug 'vim-latex/vim-latex'
+Plug 'lervag/vimtex'
+" Scala
+Plug 'derekwyatt/vim-scala'
+
+" Tmux
+Plug 'tmux-plugins/vim-tmux'
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
@@ -176,6 +178,7 @@ if has("autocmd")
           \ if line("'\"") > 1 && line("'\"") <= line("$") |
           \   exe "normal! g`\"" |
           \ endif
+    autocmd BufReadPost *.rs setlocal filetype=rust
 
   augroup END
 
@@ -232,14 +235,6 @@ nnoremap <leader>= :wincmd =<CR>
 " Go back to the last file edited
 nmap <leader>c :e#<CR>
 
-" HDevTools
-" au FileType haskell nnoremap <buffer> <leader>ht :HdevtoolsType<CR>
-" au FileType haskell nmap <buffer> <silent> <leader>hc :HdevtoolsClear<CR> 
-
-" Haskellmode-vim
-au BufEnter *.hs compiler ghc
-let g:haddock_browser="open"
-
 " ghc mod
 let $PATH = $PATH . ':' . expand('~/.local/bin')
 
@@ -286,23 +281,15 @@ autocmd FileType html,css EmmetInstall
 " Repeat : commands with one button
 map M @:
 
-" Get rid of the annoying let indentation behaviour in haskell-vim
-let g:haskell_indent_let = 0
-
-"Haskell-ide-engine keybindings
-nnoremap <silent> go :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <silent> ga :call LanguageClient#textDocument_codeAction()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> gr :call LanguageClient#textDocument_rename()<CR>
-nnoremap <silent> gff :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <silent> tq :call LanguageClient#textDocument_hover()<CR>
-
 
 let g:LanguageClient_serverCommands = {
-      \ 'haskell': ['hie-wrapper'],
       \ 'javascript': ['javascript-typescript-stdio'],
-      \ 'elm' : ['elm-language-server']
+      \ 'elm' : ['elm-language-server'],
+      \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+      \ 'haskell': ['haskell-language-server-wrapper', '--lsp']
       \ }
+
+let g:LanguageClient_rootMarkers = ['*.cabal', 'stack.yaml']
 
 let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
 
@@ -312,5 +299,26 @@ let g:deoplete#enable_at_startup = 1
 " ALE linters
 let g:ale_linters = { 'elm': ['elm_ls'] }
 
-" Vim-latex
-let g:Tex_FormatDependency_pdf = 'dvi,ps,pdf'
+"VimTex
+
+let g:tex_flavor= 'latex'
+let g:vimtex_mappings_enabled = 1
+
+if empty(v:servername) && exists('*remote_startserver')
+  call remote_startserver('VIM')
+endif
+
+let g:vimtex_view_method = 'skim'
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Automatically start language servers.
+let g:LanguageClient_autoStart = 1
+
+" Maps K to hover, gd to goto definition, F2 to rename
+nnoremap <silent> K :call LanguageClient_textDocument_hover()
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()
