@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/Library/Python/3.6/bin:$HOME/bin:/usr/local/bin:/$HOME/.local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/$HOME/.local/bin:$PATH
 
 #ZSH site functions for Heroku autocomplete. 
 if type brew &>/dev/null; then
@@ -118,11 +118,7 @@ ensure_tmux_is_running() {
 ensure_tmux_is_running
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-source "$HOME/.jira.sh"
 
-
-# Syntax highlighting plugin
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -132,3 +128,6 @@ alias neo4j="~/neo4j/neo4j-community-3.5.4/bin/neo4j"
 HEROKU_AC_ZSH_SETUP_PATH=/Users/jameshamilton/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=/Users/jameshamilton/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+# Syntax highlighting plugin
+source #{HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
