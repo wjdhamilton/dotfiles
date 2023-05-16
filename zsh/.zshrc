@@ -125,6 +125,8 @@ ensure_tmux_is_running
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 source "$HOME/.jira.sh"
 
+# Set system python
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 # Syntax highlighting plugin
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -139,7 +141,23 @@ HEROKU_AC_ZSH_SETUP_PATH=/Users/jameshamilton/Library/Caches/heroku/autocomplete
 
 # Set Rust source path for rust toolchain
 export RUST_SRC_PATH=/usr/local/src/rust/src
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
 [ -f "/Users/jameshamilton/.ghcup/env" ] && source "/Users/jameshamilton/.ghcup/env" # ghcup-env
+
+# Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/jameshamilton/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/jameshamilton/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/jameshamilton/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/jameshamilton/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

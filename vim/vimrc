@@ -27,7 +27,12 @@ set directory=~/vimtmp,.
 let mapleader = "\<Space>"
 let maplocalleader = "\\"
 
+" Vim-Plug script
 call plug#begin('~/.vim/plugged')
+
+" Syntastic
+
+Plug 'vim-syntastic/syntastic'
 
 Plug 'vim-scripts/visualrepeat'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -52,6 +57,7 @@ Plug 'andys8/vim-elm-syntax'
 Plug 'avh4/elm-format'
 Plug 'elmcast/elm-vim'
 " Haskell Plugins
+Plug 'neovimhaskell/haskell-vim'
 " Markdown
 Plug 'godlygeek/tabular' "?
 Plug 'plasticboy/vim-markdown'
@@ -64,10 +70,6 @@ Plug 'rhysd/vim-crystal'
 " Rust
 " Ruby stuff
 " LanguageClient server
-Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do' : 'bash install.sh'
-      \}
 Plug 'chrisbra/csv.vim'
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
@@ -81,6 +83,17 @@ Plug 'derekwyatt/vim-scala'
 
 " Tmux
 Plug 'tmux-plugins/vim-tmux'
+" Jupyter notebook
+Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins', 'branch': 'main' }
+" CoC for python language server
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Python language server support configuration at: https://github.com/pappasam/coc-jedi
+Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build', 'branch': 'main' }
+
+" PureScript
+Plug 'purescript-contrib/purescript-vim'
+Plug 'frigoeu/psc-ide-vim'
+
 " All of your Plugins must be added before the following line
 call plug#end()            " required
 
@@ -202,21 +215,19 @@ set shiftwidth=2
 " Always display statusline
 set laststatus=2
 "Leader mappings
-nmap <leader>rr ciw <C-r>0 <C-[>
+" nmap <leader>rr ciw <C-r>0 <C-[>
 " Reindent file and return to current position
 nmap <leader>i mmgg=G`m
 " Switch off search highlighting
 nmap <leader>n :noh<CR>
 " Run Rspec all tests in the file
-nmap <leader>rsf :call RunCurrentSpecFile()<CR>
-" Run Rspec specific test
-nmap <leader>rst :call RunNearestSpec()<CR>
-" Run Rspec last spec
-nmap <leader>rsl :call RunLastSpec()<CR>
-" Run all tests
-nmap <leader>rs :call RunAllSpecs()<CR>
-" Replace all single quotes with doubles 
-nmap <leader>"" :%s/'/"/g<Bar>:noh<CR>
+" nmap <leader>rsf :call RunCurrentSpecFile()<CR>
+" " Run Rspec specific test
+" nmap <leader>rst :call RunNearestSpec()<CR>
+" " Run Rspec last spec
+" nmap <leader>rsl :call RunLastSpec()<CR>
+" " Run all tests
+" nmap <leader>rs :call RunAllSpecs()<CR>
 " Move with <Space> rather than gg
 nmap <leader><leader> gg
 " Source vimRC
@@ -282,17 +293,6 @@ autocmd FileType html,css EmmetInstall
 map M @:
 
 
-let g:LanguageClient_serverCommands = {
-      \ 'javascript': ['javascript-typescript-stdio'],
-      \ 'elm' : ['elm-language-server'],
-      \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-      \ 'haskell': ['haskell-language-server-wrapper', '--lsp']
-      \ }
-
-let g:LanguageClient_rootMarkers = ['*.cabal', 'stack.yaml']
-
-let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
-
 " deoplete stuff
 let g:deoplete#enable_at_startup = 1
 
@@ -322,3 +322,27 @@ let g:LanguageClient_autoStart = 1
 nnoremap <silent> K :call LanguageClient_textDocument_hover()
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()
+
+" Keybindings for magma-vim
+
+nnoremap <expr><silent> <LocalLeader>r  nvim_exec('MagmaEvaluateOperator', v:true)
+nnoremap <silent>       <LocalLeader>rr :MagmaEvaluateLine<CR>
+xnoremap <silent>       <LocalLeader>r  :<C-u>MagmaEvaluateVisual<CR>
+nnoremap <silent>       <LocalLeader>rc :MagmaReevaluateCell<CR>
+
+" Key bindings for purescript
+nm <buffer> <silent> <leader>L :Plist<CR>
+nm <buffer> <silent> <leader>l :Pload!<CR>
+nm <buffer> <silent> <leader>r :Prebuild!<CR>
+nm <buffer> <silent> <leader>f :PaddClause<CR>
+nm <buffer> <silent> <leader>t :PaddType<CR>
+nm <buffer> <silent> <leader>a :Papply<CR>
+nm <buffer> <silent> <leader>A :Papply!<CR>
+nm <buffer> <silent> <leader>C :Pcase!<CR>
+nm <buffer> <silent> <leader>i :Pimport<CR>
+nm <buffer> <silent> <leader>qa :PaddImportQualifications<CR>
+nm <buffer> <silent> <leader>g :Pgoto<CR>
+nm <buffer> <silent> <leader>p :Pursuit<CR>
+nm <buffer> <silent> <leader>T :Ptype<CR>
+
+let g:psc_ide_syntastic_mode = 1
