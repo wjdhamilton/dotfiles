@@ -1,5 +1,12 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:/$HOME/.local/bin:$PATH
+<<<<<<< HEAD
+=======
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+>>>>>>> af10fcfeeaaf70aa4f8da5d8c092515d421c3b6b
 
 #ZSH site functions for Heroku autocomplete. 
 if type brew &>/dev/null; then
@@ -60,6 +67,7 @@ plugins=(
          # brew 
          cabal 
          chucknorris 
+         copypath
          git 
          jira 
          # jsontools 
@@ -119,15 +127,37 @@ ensure_tmux_is_running
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
+# Set system python
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-alias neo4j="~/neo4j/neo4j-community-3.5.4/bin/neo4j"
 
-# heroku autocomplete setup
-HEROKU_AC_ZSH_SETUP_PATH=/Users/jameshamilton/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=/Users/jameshamilton/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 # Syntax highlighting plugin
 source #{HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+=======
+
+# Set Rust source path for rust toolchain
+export RUST_SRC_PATH=/usr/local/src/rust/src
+[ -f "/Users/jameshamilton/.ghcup/env" ] && source "/Users/jameshamilton/.ghcup/env" # ghcup-env
+
+# Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/jameshamilton/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/jameshamilton/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/jameshamilton/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/jameshamilton/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
