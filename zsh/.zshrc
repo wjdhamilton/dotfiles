@@ -1,12 +1,12 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:/$HOME/.local/bin:$PATH
-<<<<<<< HEAD
-=======
+# <<<<<<< HEAD
+# =======
 
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
->>>>>>> af10fcfeeaaf70aa4f8da5d8c092515d421c3b6b
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init -)"
+# fi
+# >>>>>>> af10fcfeeaaf70aa4f8da5d8c092515d421c3b6b
 
 #ZSH site functions for Heroku autocomplete. 
 if type brew &>/dev/null; then
@@ -119,7 +119,7 @@ _not_inside_tmux() {
 
 ensure_tmux_is_running() {
   if _not_inside_tmux; then
-    tat
+    source ~/bin/tat
   fi
 }
 
@@ -136,8 +136,7 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=/Users/jameshamilton/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 # Syntax highlighting plugin
-source #{HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-=======
+# source #{HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Set Rust source path for rust toolchain
 export RUST_SRC_PATH=/usr/local/src/rust/src
